@@ -1,4 +1,4 @@
-name: AutoDownloader
+name: AutoDownloader8
 on:
   gollum
 jobs:
