@@ -1,4 +1,4 @@
-name: AutoDownloader2
+name: AutoDownloader
 on:
   gollum
 jobs:
@@ -9,7 +9,7 @@ jobs:
     - name: Rclone Install
       run: curl https://rclone.org/install.sh | sudo bash
     - name: Aria2 Install
-      run: curl https://github.com/P3TERX/aria2.sh | sudo bash
+      run: sudo apt install -y aria2
     - name: Inject Rclone&Aria2 config
       run: |
         mkdir -p ~/.config/rclone/
