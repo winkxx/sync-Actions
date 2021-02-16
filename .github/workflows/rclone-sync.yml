@@ -22,6 +22,59 @@ jobs:
       run: sudo timedatectl set-timezone 'Asia/Shanghai'
 
     - uses: actions/checkout@v2.1.0
+
+    - name: Checkin
+      run: |
+        # Start Checkin
+        WorkWeiBot="${{ secrets.WWBOT }}"
+        DingDingBot="${{ secrets.DDBOT }}"
+        SCKEY="${{ secrets.SCKEY }}"
+        function WorkWei()
+        {
+          echo -n "企业微信机器人："
+          curl -s "${WorkWeiBot}" \
+            -H 'Content-Type: application/json' \
+            -d '
+            {
+              "msgtype": "text",
+              "text": {
+                  "content": "'"`date "+%F %T %A"`$1"'"
+              }
+            }'
+          echo .
+        }
+        function DingDing()
+        {
+          echo -n "钉钉机器人："
+          curl -s "${DingDingBot}" \
+            -H 'Content-Type: application/json' \
+            -d '
+            {
+              "msgtype": "text",
+              "text": {
+                  "content": "'"`date "+%F %T %A"`$1"'"
+              }
+            }'
+          echo .
+        }
+        function FTQQ()
+        {
+          echo -n "Server酱："
+          url="https://sc.ftqq.com/${SCKEY}.send"
+          data="`date "+%F %T %A"`\n$2"
+          n='
+        '
+          n1='\\n'
+          data=${data//${n1}/${n}${n}}
+          data='text='"$1"'&desp='"${data}"
+        
+          curl -s "${url}" \
+            -d "${data}"
+          echo .
+        }
+        
+        
+        
     - name: Rclone Install
       run: curl https://rclone.org/install.sh | sudo bash
     - name: Inject Rclone config
@@ -33,3 +86,8 @@ jobs:
     - name: Rclone Synchronizing file
       run: |
         rclone copy --ignore-existing team1:Aria2D bfpan:Aria2D
+        
+        
+        [ g"${WorkWeiBot}" != g"" ] && WorkWei "${result}" || echo "未设置企业微信通知"
+        [ g"${DingDingBot}" != g"" ] && DingDing "${result}" || echo "未设置钉钉通知"
+        [ g"${SCKEY}" != g"" ] && FTQQ "rclone复制" "${result}" || echo "未设置Server酱通知"
