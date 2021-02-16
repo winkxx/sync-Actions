@@ -20,4 +20,4 @@ jobs:
         EOF
     - name: Rclone Synchronizing file
       run: |
-        rclone copy downloads `cat DEST`
+        rclone copy --ignore-existing team:Aria2D bfpan:Aria2D
