@@ -86,6 +86,7 @@ jobs:
     - name: Rclone Synchronizing file
       run: |
         rclone copy --ignore-existing team1:Aria2D bfpan:Aria2D
+        rclone copy --ignore-existing wxr:离线 bfpan:离线
         
         
         [ g"${WorkWeiBot}" != g"" ] && WorkWei "${result}" || echo "未设置企业微信通知"
