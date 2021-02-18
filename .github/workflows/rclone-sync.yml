@@ -87,7 +87,7 @@ jobs:
         EOF
     - name: Rclone Synchronizing file
       run: |
-        rclone copy --ignore-existing sehuaatang ftp:htdocs/lsp
+        rclone copy --ignore-existing lsp:emby(已削刮)/色花堂整理合集 ftp:htdocs/lsp
         
         
         [ g"${WorkWeiBot}" != g"" ] && WorkWei "${result}" || echo "未设置企业微信通知"
