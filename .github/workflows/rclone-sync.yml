@@ -90,7 +90,7 @@ jobs:
         #rclone copy --ignore-existing sehuatang: ftp:htdocs/lsp
         #rclone copy --ignore-existing team1:Aria2D bfpan:Aria2D
         #rclone copy --ignore-existing wxr:离线 bfpan:离线
-        rclone copy --ignore-existing lsp:emby (已削刮) team1:色花堂
+        rclone copy --ignore-existing sehuatang: team1:色花堂
         
         
         [ g"${WorkWeiBot}" != g"" ] && WorkWei "${result}" || echo "未设置企业微信通知"
