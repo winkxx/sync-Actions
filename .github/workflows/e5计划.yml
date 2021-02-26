@@ -1,0 +1,98 @@
+name: E5计划
+on:
+  workflow_dispatch: # 手动触发
+  schedule: # 计划任务触发
+    - cron: '0 15 * * *' 
+    # cron表达式，时区是UTC时间，比我们早8小时，如上所表示的是每天0点0分（24点整）
+    # 建议每个人通过设置 GitHub Environments 的方式来设定为自己的目标运行时间（详细设置方法见文档说明）
+    
+    #rclone copy --ignore-existing sehuatang: ftp:htdocs/lsp
+    #rclone copy --ignore-existing team1:Aria2D bfpan:Aria2D
+    #rclone copy --ignore-existing wxr:离线 bfpan:离线
+    #rclone copy --ignore-existing sehuatang: team1:色花堂
+jobs:
+  AutoDownloaderProcess:
+    runs-on: ubuntu-20.04
+    steps:
+
+
+    # 输出IP
+    - name: IP
+      run: sudo curl ifconfig.me
+
+
+
+    # 设置服务器时区为东八区 
+    - name: Set time zone
+      run: sudo timedatectl set-timezone 'Asia/Shanghai'
+
+    - uses: actions/checkout@v2.1.0
+
+    - name: Checkin
+      run: |
+        # Start Checkin
+        WorkWeiBot="${{ secrets.WWBOT }}"
+        DingDingBot="${{ secrets.DDBOT }}"
+        SCKEY="${{ secrets.SCKEY }}"
+        function WorkWei()
+        {
+          echo -n "企业微信机器人："
+          curl -s "${WorkWeiBot}" \
+            -H 'Content-Type: application/json' \
+            -d '
+            {
+              "msgtype": "text",
+              "text": {
+                  "content": "'"`date "+%F %T %A"`$1"'"
+              }
+            }'
+          echo .
+        }
+        function DingDing()
+        {
+          echo -n "钉钉机器人："
+          curl -s "${DingDingBot}" \
+            -H 'Content-Type: application/json' \
+            -d '
+            {
+              "msgtype": "text",
+              "text": {
+                  "content": "'"`date "+%F %T %A"`$1"'"
+              }
+            }'
+          echo .
+        }
+        function FTQQ()
+        {
+          echo -n "Server酱："
+          url="https://sc.ftqq.com/${SCKEY}.send"
+          data="`date "+%F %T %A"`\n$2"
+          n='
+        '
+          n1='\\n'
+          data=${data//${n1}/${n}${n}}
+          data='text='"$1"'&desp='"${data}"
+        
+          curl -s "${url}" \
+            -d "${data}"
+          echo .
+        }
+        
+        
+        
+    - name: Rclone Install
+      run: curl https://rclone.org/install.sh | sudo bash
+    - name: Inject Rclone config
+      run: |
+        mkdir -p ~/.config/rclone/
+        cat >  ~/.config/rclone/rclone.conf  << EOF
+        ${{ secrets.RCLONE_CONF }}
+        EOF
+    - name: Rclone Synchronizing file
+      run: |
+        rclone copy --ignore-existing 10ve: Eod:10ve
+        
+        
+        [ g"${WorkWeiBot}" != g"" ] && WorkWei "${result}" || echo "未设置企业微信通知"
+        [ g"${DingDingBot}" != g"" ] && DingDing "${result}" || echo "未设置钉钉通知"
+        [ g"${SCKEY}" != g"" ] && FTQQ "rclone复制" "${result}" || echo "未设置Server酱通知"
