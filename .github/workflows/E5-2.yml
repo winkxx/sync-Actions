@@ -1,8 +1,8 @@
-name: Od---E5备份
+name: lsp---E5备份
 on:
   workflow_dispatch: # 手动触发
-  #schedule: # 计划任务触发
-    #- cron: '0 16 * * *' 
+  schedule: # 计划任务触发
+    - cron: '0 16 * * *' 
     # cron表达式，时区是UTC时间，比我们早8小时，如上所表示的是每天0点0分（24点整）
     # 建议每个人通过设置 GitHub Environments 的方式来设定为自己的目标运行时间（详细设置方法见文档说明）
     
@@ -28,55 +28,6 @@ jobs:
 
     - uses: actions/checkout@v2.1.0
 
-    - name: Checkin
-      run: |
-        # Start Checkin
-        WorkWeiBot="${{ secrets.WWBOT }}"
-        DingDingBot="${{ secrets.DDBOT }}"
-        SCKEY="${{ secrets.SCKEY }}"
-        function WorkWei()
-        {
-          echo -n "企业微信机器人："
-          curl -s "${WorkWeiBot}" \
-            -H 'Content-Type: application/json' \
-            -d '
-            {
-              "msgtype": "text",
-              "text": {
-                  "content": "'"`date "+%F %T %A"`$1"'"
-              }
-            }'
-          echo .
-        }
-        function DingDing()
-        {
-          echo -n "钉钉机器人："
-          curl -s "${DingDingBot}" \
-            -H 'Content-Type: application/json' \
-            -d '
-            {
-              "msgtype": "text",
-              "text": {
-                  "content": "'"`date "+%F %T %A"`$1"'"
-              }
-            }'
-          echo .
-        }
-        function FTQQ()
-        {
-          echo -n "Server酱："
-          url="https://sc.ftqq.com/${SCKEY}.send"
-          data="`date "+%F %T %A"`\n$2"
-          n='
-        '
-          n1='\\n'
-          data=${data//${n1}/${n}${n}}
-          data='text='"$1"'&desp='"${data}"
-        
-          curl -s "${url}" \
-            -d "${data}"
-          echo .
-        }
         
         
         
@@ -90,7 +41,7 @@ jobs:
         EOF
     - name: Rclone Synchronizing file
       run: |
-        rclone copy --ignore-existing odpan: Eod:备份
+        rclone copy --ignore-existing team1:Aria2D Eod:lsp盘备份
         
         
         [ g"${WorkWeiBot}" != g"" ] && WorkWei "${result}" || echo "未设置企业微信通知"
