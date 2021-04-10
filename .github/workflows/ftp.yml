@@ -1,4 +1,4 @@
-name: 
+name: lsp-ftp
 on:
   workflow_dispatch: # 手动触发
   schedule: # 计划任务触发
