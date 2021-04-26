@@ -1,0 +1,19 @@
+name: ssh
+on:
+  workflow_dispatch: # 手动触发
+jobs:
+  AutoDownloaderProcess:
+    runs-on: ubuntu-20.04
+    steps:
+     # 输出IP
+    - name: IP
+      run: sudo curl ifconfig.me
+    - name: Start SSH via ngrok
+      uses: P3TERX/ssh2actions@main
+      with:
+         mode: ngrok
+env:
+     NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+     NGROK_REGION: us
+     SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
