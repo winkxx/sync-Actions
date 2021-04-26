@@ -16,4 +16,3 @@ env:
      NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
      NGROK_REGION: us
      SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
