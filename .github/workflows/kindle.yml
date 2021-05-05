@@ -30,6 +30,6 @@ jobs:
         EOF
     - name: Rclone Synchronizing file
       run: |
-        rclone copy -P --ignore-existing manhua: kindle:
+        rclone copy -P  manhua: kindle:
     - uses: actions/checkout@v2.1.0
     
