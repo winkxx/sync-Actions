@@ -19,8 +19,8 @@ jobs:
       run: |
            docker run -d --name=genshinhelper \
            -e COOKIE_MIHOYOBBS="_ga=GA1.2.1145673151.1624261568; _MHYUUID=cb130fe1-8f31-47fb-8698-e451fc18095d; login_uid=184648020; login_ticket=6Ad0gZUHztBAt3esxW3ylwDSUHQgoeqtLntw7IQj; account_id=184648020; cookie_token=GMyi5SQKWVrhQdP6oXqorz7aAanPEPB2FOzInik4; ltoken=FnhHaTLJPdNf6EPEtiZEiqhgutMdYkSt8at1Ajkm; ltuid=184648020" \
+           -e TG_BOT_TOKEN="1478251356:AAHOkm9zXM6hEJ3NxS9goCOAU6z4lLWMqHY" \
+           -e TG_USER_ID="1367147811" \
            --restart always \
            yindan/genshinhelper:latest
-    - name: docker logs
-      run: |
-           docker logs -f -t --tail 10 genshinhelper
+    - uses: actions/checkout@v2.1.0
