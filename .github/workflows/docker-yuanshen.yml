@@ -1,8 +1,8 @@
-name: docker-yuanshen
+name: docker-签到
 on:
-  #workflow_dispatch: # 手动触发
-  schedule: # 计划任务触发
-    - cron: '0 06 * * *' 
+  workflow_dispatch: # 手动触发
+  #schedule: # 计划任务触发
+    #- cron: '0 06 * * *' 
     # cron表达式，时区是UTC时间，比我们早8小时，如上所表示的是每天0点0分（24点整）
     # 建议每个人通过设置 GitHub Environments 的方式来设定为自己的目标运行时间（详细设置方法见文档说明）
 
@@ -15,7 +15,7 @@ jobs:
        
     - name: docker install
       run: curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-    - name: docker run
+    - name: docker run  (yuanshen)
       run: |
            docker run -d --name=genshinhelper \
            -e COOKIE_MIHOYOBBS="_ga=GA1.2.1145673151.1624261568; _MHYUUID=cb130fe1-8f31-47fb-8698-e451fc18095d; login_uid=184648020; login_ticket=6Ad0gZUHztBAt3esxW3ylwDSUHQgoeqtLntw7IQj; account_id=184648020; cookie_token=GMyi5SQKWVrhQdP6oXqorz7aAanPEPB2FOzInik4; ltoken=FnhHaTLJPdNf6EPEtiZEiqhgutMdYkSt8at1Ajkm; ltuid=184648020" \
@@ -23,4 +23,23 @@ jobs:
            -e TG_USER_ID="1367147811" \
            --restart always \
            yindan/genshinhelper:latest
+    - name: git clone
+      run: |
+           git clone https://github.com/bigmax706/AutoSign
+           cd AutoSign
+    - name: docker build | docker run (ltong)
+      run: |
+           # 构建
+           docker build -t auto-sign-machine:latest  -f docker/Dockerfile .
+           # 运行(cookies和账号密码两种方式二选一)
+           docker run \
+           --name auto-sign-machine \
+           -d \
+           --label traefik.enable=false \
+           -e enable_unicom=true \
+           -e user=15625569892 \
+           -e password=991211 \
+           -e appid=0d63911423ebd0c3458a6010084f8c2f5a98d9f06fe659afdbcd4da353f3f9c4fb61bd3ac0049270ed9794b67567bf40 \
+           auto-sign-machine:latest
+
     - uses: actions/checkout@v2.1.0
