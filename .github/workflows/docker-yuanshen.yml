@@ -26,11 +26,11 @@ jobs:
     - name: git clone
       run: |
            git clone https://github.com/bigmax706/AutoSign
-           cd AutoSign
+           cd /home/runner/AutoSign
     - name: docker build | docker run (ltong)
       run: |
            # 构建
-           docker build -t auto-sign-machine:latest  -f docker/Dockerfile .
+           docker build -t auto-sign-machine:latest  -f /home/runner/AutoSign/docker/Dockerfile .
            # 运行(cookies和账号密码两种方式二选一)
            docker run \
            --name auto-sign-machine \
