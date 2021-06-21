@@ -25,8 +25,9 @@ jobs:
            yindan/genshinhelper:latest
     - name: git clone
       run: |
-           git clone https://github.com/bigmax706/AutoSign
-           cd /home/runner/AutoSign
+           git clone https://github.com/bigmax706/AutoSign.git
+           chmod +x AutoSign -R
+           cd AutoSign
     - name: docker build | docker run (ltong)
       run: |
            # 构建
