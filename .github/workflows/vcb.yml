@@ -32,6 +32,6 @@ jobs:
         EOF
     - name: Rclone Synchronizing file
       run: |
-        rclone copy --ignore-existing vcb: bfpan:VCB
+        rclone copy --ignore-existing vcb: stt:新番
     - uses: actions/checkout@v2.1.0
     
