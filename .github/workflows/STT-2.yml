@@ -1,4 +1,4 @@
-name: STT2
+name: STT-2
 on:
   workflow_dispatch: # 手动触发
   schedule:
