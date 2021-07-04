@@ -32,5 +32,5 @@ jobs:
         EOF
     - name: Rclone Synchronizing file
       run: |
-        rclone copy -P --ignore-existing porn: stt:porn
+        rclone copy -P --ignore-existing pd3: stt:混合
     - uses: actions/checkout@v2.1.0
