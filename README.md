@@ -6,4 +6,4 @@
 ## aria2bot
 ### [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?template=https://github.com/winkxx/aria2-ariang-docker)
 ## M-bot
-### [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?template=https://github.com/winkxx/bot-)
+### [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://dashboard.heroku.com/new?template=https://github.com/winkxx/bot-M)
