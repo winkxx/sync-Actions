@@ -33,5 +33,4 @@ jobs:
     - name: Rclone Synchronizing file
       run: |
         rclone copy -P --ignore-existing xinfan: stt:新番
-        rclone copy -P --ignore-existing vcb: stt:新番
     - uses: actions/checkout@v2.1.0
