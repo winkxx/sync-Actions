@@ -1,0 +1,36 @@
+name: MJJ-Porn
+on:
+  workflow_dispatch: # 手动触发
+  schedule:
+    - cron: 0 2,18 * * *
+  #schedule: # 计划任务触发
+    #- cron: '0 01 * * *' 
+    # cron表达式，时区是UTC时间，比我们早8小时，如上所表示的是每天0点0分（24点整）
+    # 建议每个人通过设置 GitHub Environments 的方式来设定为自己的目标运行时间（详细设置方法见文档说明）
+jobs:
+  AutoDownloaderProcess:
+    runs-on: ubuntu-20.04
+    steps:
+
+
+    # 输出IP
+    - name: IP
+      run: sudo curl ifconfig.me
+
+
+
+    - uses: actions/checkout@v2.1.0
+        
+        
+    - name: rclone
+      run: curl https://rclone.org/install.sh | sudo bash
+    - name: Inject Rclone config
+      run: |
+        mkdir -p ~/.config/rclone/
+        cat >  ~/.config/rclone/rclone.conf  << EOF
+        ${{ secrets.RCLONE_CONF }}
+        EOF
+    - name: Rclone Synchronizing file
+      run: |
+        rclone copy -P --ignore-existing porn: mjj:porn
+    - uses: actions/checkout@v2.1.0
