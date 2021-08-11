@@ -8,17 +8,17 @@ jobs:
      # 输出IP
     - name: IP
       run: sudo curl ifconfig.me
-    - name: Start SSH via ngrok
-      uses: P3TERX/ssh2actions@main
-      with:
-         mode: ngrok
+      
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
       with:
           retain_days: 2
           keep_minimum_runs: 6
+    - name: Start SSH via ngrok
+      uses: P3TERX/ssh2actions@main
+      with:
+         mode: ngrok
          
-
 env:
      NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
      NGROK_REGION: us
