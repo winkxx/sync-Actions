@@ -1,4 +1,4 @@
-name: download-promax
+name: od-download-promax
 #自动更新trcker版本----最大16G
 on:
   #gollum
