@@ -1,0 +1,56 @@
+name: download-promax
+#自动更新trcker版本----最大16G
+on:
+  #gollum
+  workflow_dispatch: # 手动触发
+jobs:
+  AutoDownloaderProcess:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2.1.0
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+          retain_days: 2
+          keep_minimum_runs: 6
+    - name: Rclone Install
+      run: curl https://rclone.org/install.sh | sudo bash
+    - name: Aria2 Install(破解线程版)
+      run: |
+        wget https://github.com/P3TERX/Aria2-Pro-Core/releases/download/1.36.0_2021.08.22/aria2-1.36.0-static-linux-amd64.tar.gz
+        tar zxvf aria2-1.36.0-static-linux-amd64.tar.gz
+        sudo mv aria2c /usr/local/bin
+    - name: remove download
+      run: rm -rf /home/runner/downloads
+    - name: Inject Rclone&Aria2 config
+      run: |
+        mkdir -p ~/.config/rclone/
+        cat >  ~/.config/rclone/rclone.conf  << EOF
+        ${{ secrets.RCLONE_CONF }}
+        EOF
+        cd ~/
+        git clone https://github.com/winkxx/plz-download
+        chmod +x ~/plz-download -R
+        #rm -rf ~/plz-download
+        cd ~/plz-download/config
+        chmod 0777 ~/plz-download/config/tracker.sh
+        /bin/bash ~/plz-download/config/tracker.sh 
+    - name: Aria2_Downloading_File
+      run: |
+        cd ~/
+        mkdir -p ~/downloads
+        chmod +x ~/downloads -R
+        git clone https://github.com/winkxx/OneDriveShareLinkPushAria2
+        cd ~/OneDriveShareLinkPushAria2
+        chmod +x ~/OneDriveShareLinkPushAria2 -R
+        cd ~/OneDriveShareLinkPushAria2
+        
+    - name: pip&run
+      run: |
+        cd ~/OneDriveShareLinkPushAria2
+        pip install -r requirements.txt
+        python3 main.py      
+    - name: Rclone Synchronizing file
+      run: |
+        rclone copy -P /home/runner/downloads xinyi:heroku
+         #rclone copy -P /home/runner/downloads bfpan:Aria2D/里番
