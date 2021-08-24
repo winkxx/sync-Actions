@@ -50,7 +50,7 @@ jobs:
         cd ~/OneDriveShareLinkPushAria2
         pip install -r requirements.txt
         python3 main.py      
-    - name: Rclone Synchronizing file
-      run: |
-        rclone copy -P /home/runner/downloads xinyi:heroku
+    #- name: Rclone Synchronizing file
+      #run: |
+        #rclone copy -P /home/runner/downloads xinyi:heroku
          #rclone copy -P /home/runner/downloads bfpan:Aria2D/里番
