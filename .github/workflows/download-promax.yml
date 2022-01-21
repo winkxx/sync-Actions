@@ -34,7 +34,9 @@ jobs:
         cd ~/
         wget git.io/tracker.sh
         chmod 0777 ~/tracker.sh
-        /bin/bash tracker.sh "~/.aria2/aria2.conf"
+        cd ~/.aria2
+        /bin/bash tracker.sh
+        cd ~/
     - name: Aria2_Downloading_File
       run: |
         git clone "https://github.com/${GITHUB_REPOSITORY}.wiki.git"
