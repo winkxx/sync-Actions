@@ -7,6 +7,11 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2.1.0
+    - name: Delete workflow runs
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 2
+        keep_minimum_runs: 6
     - name: Rclone Install
       run: curl https://rclone.org/install.sh | sudo bash
     - name: Aria2 Install(无限制版本)
