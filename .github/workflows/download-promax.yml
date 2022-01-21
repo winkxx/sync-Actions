@@ -1,5 +1,6 @@
 name: AutoDownloader
 on:
+  #workflow_dispatch: # 手动触发
   gollum
 jobs:
   AutoDownloaderProcess:
