@@ -31,11 +31,10 @@ jobs:
         EOF
     - name: 添加Tracker
       run: |
-        cd ~/
-        wget git.io/tracker.sh
-        chmod 0777 ~/tracker.sh
         cd ~/.aria2
-        /bin/bash tracker.sh
+        wget git.io/tracker.sh
+        chmod 0777 ~/.aria2/tracker.sh
+        /bin/bash ~/.aria2/tracker.sh
         cd ~/
     - name: Aria2_Downloading_File
       run: |
